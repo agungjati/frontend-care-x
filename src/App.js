@@ -1,0 +1,16 @@
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
+import HomePage from "./components/homepage/HomePage";
+
+import './App.css'
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<HomePage />} />
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
