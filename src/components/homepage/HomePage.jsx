@@ -38,7 +38,7 @@ const HomePage = () => {
                             <a className="nav-link active" href="#services">Services</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link active" href="#client">Client</a>
+                            <a className="nav-link active" href="#clients">Client</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link active" href="#team">Team</a>

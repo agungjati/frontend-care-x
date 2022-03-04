@@ -1,0 +1,128 @@
+.card-dashboard {
+    height: 171px;
+    border-radius: 16px;
+    width: 248px;        
+}
+
+.card-dashboard h2{
+    color: #32C126;
+}
+
+.card-dashboard .progress {
+    width: 120px;
+    height: 5px;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+.text-purple {
+    color: #8645DA;
+}
+
+.text-bluesea {
+   color: #24B7AE !important;
+}
+
+.tab-content {
+    background: #F6F6F6;
+    border-radius: 0px 0px 8px 8px;
+    padding: 10px;
+}
+
+#sales-pipeline .nav-link.active {
+    background: #F6F6F6 !important;
+    border-radius: 8px 8px 0px 0px;
+    border: none !important;
+}
+
+.container-tab {
+    max-width: 810px !important;
+}
+
+#sales-pipeline .nav-tabs {
+    border-bottom: 1px solid #F6F6F6 !important;
+}
+
+#sales-pipeline .nav-item {
+    width: 33.3%;
+    background: #ECECEC;
+    border-radius: 8px 8px 0px 0px;
+}
+
+.progress-dashboard {    
+    border-radius: 8px;
+    max-width: 584px;
+}
+
+.bg-lowgreen {
+    background-color: #32C126 !important;
+}
+
+.progress-container {
+    max-width: 80%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.progress-dashboard .progress {
+    height: 8px;
+}
+
+.progress-bar-start {
+    left: 0;
+}
+
+.progress-bar-completed {
+    right: 0;
+}
+
+.progress-bar-start, .progress-bar-end, .progress-bar-completed {
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    border-radius: 50%;
+    padding: 8px;    
+    top: -5px;
+    position: absolute;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.progress-bar-start >.dot {
+    background: #32C126;
+}
+
+.progress-bar-completed >.dot {
+    background:#818181;
+}
+
+.progress-bar-end >.dot {
+    background: #C12626;
+}
+
+.progress-bar-start >.dot, .progress-bar-end >.dot, .progress-bar-completed >.dot {
+    width: 1px;
+    height: 1px;
+    border-radius: 50%;
+    padding: 5px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.label-start{
+    left: -10%;
+    position: absolute;
+    top: 15px;
+}
+
+.label-end{
+    position: absolute;
+    top: 15px;
+}
+
+.label-completed {
+    position: absolute;
+    right: -6%;
+    top: 15px;
+}
