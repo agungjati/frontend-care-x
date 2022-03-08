@@ -1,0 +1,40 @@
+#order-tracking {
+    table {
+        background: #efefef;
+        border-radius: 8px;
+    }
+
+    table th{
+        background-color: #CD9136 !important;
+        text-align: center;
+        padding: 5px;
+    }
+
+    table th:nth-child(1) {
+        border-radius: 8px 0 0 8px;
+    }
+
+    table th:last-child{
+        border-radius: 0 8px 8px 0;
+    }
+
+    table tbody td {
+        background: #efefef;
+        text-align: center;
+        padding: 8px 2px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    table tbody >tr:last-child td {
+        border: none;
+    }
+
+    table tbody >tr:last-child >td:first-child{
+        border-radius: 0 0 0 8px;
+    }
+
+    table tbody >tr:last-child >td:last-child{
+        border-radius: 0 0 8px 0;
+    }
+
+}

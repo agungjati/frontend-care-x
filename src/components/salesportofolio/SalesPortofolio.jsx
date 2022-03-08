@@ -1,6 +1,9 @@
 import Navbar from "../navbar/Navbar"
 import "./salesPortofolio.scss"
 import { NavLink, useNavigate } from "react-router-dom"
+import { getSalesAPI } from "../../redux/api/api.salespipeline"
+import { useEffect } from "react"
+import { useSelector } from "react-redux"
 
 
 const customerData = [
@@ -22,6 +25,23 @@ const customerData = [
 
 const SalesPortofolio = () => {
     const navigate = useNavigate();
+    const stateAuth = useSelector(state => state.auth)
+
+    useEffect(() => {
+        getSales()
+    }, [])
+
+
+    const getSales = () => {
+        getSalesAPI(stateAuth.token)
+        .then(res => {
+            // setCustomer(res.data)
+        })
+        .catch(err => {
+            console.log('[getSalesAPI]', err)
+            alert('Error : '+ err?.response?.data?.message || err.message)
+        })
+    }
 
     const renderPreSales = () => {
         return (<>

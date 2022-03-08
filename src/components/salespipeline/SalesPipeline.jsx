@@ -1,5 +1,7 @@
 import Navbar from "../navbar/Navbar"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { getAllCustomerAPI } from "../../redux/api/api.customer"
+import { useSelector } from "react-redux"
 
 
 const Checkbox = ({ children, name }) => {
@@ -15,7 +17,44 @@ const Checkbox = ({ children, name }) => {
     )
 }
 
+const service_prospect_data = ["Metro", "IPTX", "CNDC"]
 const SalesPipeline = () => {
+
+    const [formState, setformState] = useState({
+        company_id: null,
+        service_prospect: [],
+        status: 1,
+        minutes_of_meeting: "",
+        user_id: null,
+        pic_name: "",
+        pic_phone: "",
+        pic_email: ""
+    })
+    const [customerState, setCustomer ] = useState([])
+    const stateAuth = useSelector(state => state.auth)
+
+    const onChange = (e) => {
+        setformState({
+            ...formState,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    useEffect(() => {
+        getAllCustomer()
+    }, [])
+
+    const getAllCustomer = () => {
+        getAllCustomerAPI(stateAuth.token)
+        .then(res => {
+            setCustomer(res.data)
+        })
+        .catch(err => {
+            console.log('[getAllCustomerAPI]', err)
+            alert('Error : '+ err?.response?.data?.message || err.message)
+        })
+    }
+
     return (
         <div className='bg-light' >
             <Navbar />
@@ -32,8 +71,13 @@ const SalesPipeline = () => {
                                         <label>Nama Customer</label>
                                     </div>
                                     <div className='col-md-6 mb-3'>
-                                        <select className='form-select border-0 text-last-center fw-bold' >
+                                        <select name='company_id' onChange={onChange} className='form-select border-0 text-last-center fw-bold' >
                                             <option>Pilih Perusahaan</option>
+                                            {
+                                                customerState.map((cs, key) => (
+                                                    <option value={cs.company_id}>{cs.name}</option>
+                                                ))
+                                            }
                                         </select>
                                     </div>
                                 </div>

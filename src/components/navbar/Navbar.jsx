@@ -36,19 +36,19 @@ const Navbar = () => {
             <div className="collapse navbar-collapse" id="navbarText">
                 <ul className="navbar-nav mb-2 mb-lg-0 me-lg-4">
                     <li className="nav-item">
-                        <NavLink to={`/1/home`} className='nav-link' >Home</NavLink>
+                        <NavLink to={`/${stateAuth.user.nik}/home`} className='nav-link' >Home</NavLink>
                     </li>
                     <li className="nav-item">
-                        <NavLink to={`/1/customerdatabase`} className='nav-link' >Customer Database</NavLink>
+                        <NavLink to={`/${stateAuth.user.nik}/customerdatabase`} className='nav-link' >Customer Database</NavLink>
                     </li>
                     <li className="nav-item">
-                        <NavLink to={`/1/salesportofolio`} className='nav-link' >Sales Portofolio</NavLink>
+                        <NavLink to={`/${stateAuth.user.nik}/salesportofolio`} className='nav-link' >Sales Portofolio</NavLink>
                     </li>
                     <li className="nav-item">
-                        <NavLink to={`/1/aftersales`} className='nav-link' >After Sales</NavLink>
+                        <NavLink to={`/${stateAuth.user.nik}/aftersales`} className='nav-link' >After Sales</NavLink>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#team">Order Tracking</a>
+                        <NavLink to={`/${stateAuth.user.nik}/ordertracking`} className='nav-link' >Order Tracking</NavLink>
                     </li>
                     <li className="nav-item">
                         <a className="nav-link" href="#team">LIS Connectivity Non CNOP</a>

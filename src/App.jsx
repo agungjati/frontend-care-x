@@ -8,6 +8,7 @@ import SalesPipeline from "./components/salespipeline/SalesPipeline";
 import AfterSales from "./components/after-sales/AfterSales";
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
+import OrderTracking from "./components/order-tracking/OrderTracking";
 import './App.css'
 
 function App() {
@@ -22,7 +23,8 @@ function App() {
         <Route path="/:id/customerdatabase" element={<CustomerDatabase />} />
         <Route path="/:id/customerdatabase/:customer" element={<CustomerDatabaseDetail />} />
         <Route path="/:id/salespipeline-add" element={<SalesPipeline />} />
-        <Route path="/:id/aftersales" element={<AfterSales />} />        
+        <Route path="/:id/aftersales" element={<AfterSales />} />
+        <Route path="/:id/ordertracking" element={<OrderTracking />} />
       </Routes>
     </Router>
   );

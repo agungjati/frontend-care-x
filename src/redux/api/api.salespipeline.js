@@ -22,6 +22,15 @@ export const updateSalesAPI = async (token, id, data) => {
     }).then( res => res.data )
 }
 
+export const getSalesAPI = async (token) => {
+    return await API({
+        url : 'sales',
+        headers: {
+            'x-access-token': token
+        }
+    }).then( res => res.data )
+}
+
 export const deleteSalesAPI = async (token, id) => {
     return await API({
         url : 'sales/'+ id,
