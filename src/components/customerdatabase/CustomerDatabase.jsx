@@ -1,40 +1,48 @@
 import Navbar from "../navbar/Navbar"
 import "./customerDatabase.scss"
-import { useState } from "react"
-import { Link, NavLink } from "react-router-dom"
-
-const _customerData = [
-    { name: 'Hypernet', logo: '/assets/img/hypernet.jpg' },
-    { name: 'lintasart', logo: '/assets/img/lintasart.jpg' },
-    { name: 'iconi', logo: '/assets/img/iconi.jpg' },
-    { name: 'indosat', logo: '/assets/img/indosat.jpg' },
-    { name: 'xl', logo: '/assets/img/xl.jpg' },
-    { name: 'prisma', logo: '/assets/img/prisma.jpg' },
-
-    { name: 'Logo Perusahaan', logo: '/assets/img/Logo Perusahaan.png' },
-    { name: 'Logo Perusahaan', logo: '/assets/img/Logo Perusahaan.png' },
-    { name: 'Logo Perusahaan', logo: '/assets/img/Logo Perusahaan.png' },
-    { name: 'Logo Perusahaan', logo: '/assets/img/Logo Perusahaan.png' },
-    { name: 'Logo Perusahaan', logo: '/assets/img/Logo Perusahaan.png' },
-    { name: 'Logo Perusahaan', logo: '/assets/img/Logo Perusahaan.png' }
-]
+import { useState, useEffect } from "react"
+import { NavLink } from "react-router-dom"
+import { getAllCustomerAPI, searchCustomerAPI } from "../../redux/api/api.customer"
+import { useSelector } from "react-redux"
 
 const CustomerDatabase = () => {
 
     const [ search, setSearch] = useState('')
     const [ isSearched, setSearched] = useState(false)
-    const [ customerData, setCustomer ]     = useState(_customerData)
+    const [ customerData, setCustomer ]  = useState([])
+    const stateAuth = useSelector(state => state.auth)
 
+    useEffect(() => {
+        getAllCustomer()
+    }, [])
+
+    const getAllCustomer = () => {
+        getAllCustomerAPI(stateAuth.token)
+        .then(res => {
+            setCustomer(res.data)
+        })
+        .catch(err => {
+            console.log('[getAllCustomerAPI]', err)
+            alert('Error : '+ err?.response?.data?.message || err.message)
+        })
+    }
 
     const onSearch = (e) => {
         e.preventDefault()
 
-        if(search) {
-            setCustomer(_customerData.filter(cs => cs.name.includes(search) ))
+        if(search) {            
             setSearched(true)
-        }else{
-            setCustomer(_customerData)
+            searchCustomerAPI(stateAuth.token, search)
+            .then(res => {
+                setCustomer(res.data)
+            })
+            .catch(err => {
+                console.log('[searchCustomerAPI]', err)
+                alert('Error : '+ err?.response?.data?.message || err.message)
+            })
+        }else{            
             setSearched(false)
+            getAllCustomer()
         }
     }
 
@@ -65,9 +73,15 @@ const CustomerDatabase = () => {
                                 <i>Search Result</i>
                             </p> :  '' }                        
                             { customerData.map((cData, key) => (
-                                <NavLink to={`/1/customerdatabase/${cData.name}`} >
-                                    <div key={key} className={`card-customer d-inline-flex align-items-center justify-content-center ${key % 6 === 0 ? 'ms-0' : '' }`}
-                                        style={{ background: `url('${cData.logo}') no-repeat center #F7F7F7` }} >
+                                <NavLink key={key} to={`/1/customerdatabase/${cData.name}?id=${cData.company_id}`} >
+                                    <div  className={`card-customer d-inline-flex align-items-center justify-content-center ${key % 6 === 0 ? 'ms-0' : '' }`}
+                                        style={{ 
+                                            backgroundImage: `url('${cData.image}')`, 
+                                            backgroundRepeat: 'no-repeat', 
+                                            backgroundColor: '#F7F7F7', 
+                                            backgroundSize: 'cover', 
+                                            backgroundPosition: 'center' 
+                                    }} >
                                     </div>
                                 </NavLink>
                             )) }

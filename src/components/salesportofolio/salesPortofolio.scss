@@ -1,0 +1,60 @@
+.w-810 {
+    max-width: 810px;
+}
+
+.card-customer-sales {
+    height: 111px;
+    width: 111px;
+    border-radius: 16px;
+    background: #F7F7F7;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin-left: 28px;
+    padding: 10px 0;;
+}
+
+#sales-portofolio {
+    overflow-x: hidden;
+    white-space: nowrap;
+}
+
+.arrow-right-sales {
+    right: -25px;
+    top: 30%;
+    font-size: 44px;
+}
+
+#sales-progress-commitment {
+    .card-dashboard {
+        height: 104px;
+        border-radius: 16px;
+        width: 248px;        
+    }
+    
+    .card-dashboard h2{
+        color: #32C126;
+    }
+    
+    .card-dashboard .progress {
+        width: 120px;
+        height: 5px;
+        margin: 0 auto;
+        margin-top: 10px;
+    }
+    
+    .text-purple {
+        color: #8645DA;
+    }
+    
+    .text-bluesea {
+       color: #24B7AE !important;
+    }
+    
+}
+
+#sales-pre-sales {
+    border-radius: 8px;
+}
+
+.rounded-8 {
+    border-radius: 8px !important;
+}

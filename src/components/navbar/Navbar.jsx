@@ -1,9 +1,27 @@
 import logo from '../../assets/logo.svg'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 import "./navbar.scss"
+import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
 
 const Navbar = () => {
+    const stateAuth = useSelector(state => state.auth)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (!stateAuth.user || !stateAuth.token) {
+            navigate('/login')
+        }  
+        // eslint-disable-next-line react-hooks/exhaustive-deps  
+    }, []) 
+
+    const logout = () => {
+        localStorage.clear()
+        navigate('/login')
+    }
+
+
 
     return (<nav id="navbar-user" className="navbar navbar-expand-lg  navbar-light bg-light">
         <div className="container-fluid">
@@ -24,23 +42,35 @@ const Navbar = () => {
                         <NavLink to={`/1/customerdatabase`} className='nav-link' >Customer Database</NavLink>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#services">Sales Portofolio</a>
+                        <NavLink to={`/1/salesportofolio`} className='nav-link' >Sales Portofolio</NavLink>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#clients">After Sales</a>
+                        <NavLink to={`/1/aftersales`} className='nav-link' >After Sales</NavLink>
                     </li>
                     <li className="nav-item">
                         <a className="nav-link" href="#team">Order Tracking</a>
                     </li>
                     <li className="nav-item">
                         <a className="nav-link" href="#team">LIS Connectivity Non CNOP</a>
-                    </li>                    
+                    </li>
                 </ul>
                 <div className='ms-auto d-flex me-lg-4' >
                     <span className="avatar material-icons-outlined px-2">account_circle</span>
-                    <div>
-                        <div className='fw-bold' >Robert Raditya</div>
-                        <div className='fw-bold' >940453</div>
+                    <div className="dropdown">
+                        <button className="btn btn-secondary dropdown-toggle p-0 bg-light text-dark border-0 d-flex align-items-center justify-content-between" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div className='pe-2'>
+                                <div className='fw-bold text-start' >{stateAuth.user.name}</div>
+                                <div className='fw-bold text-start' >{stateAuth.user.nik}</div>
+                            </div>
+                        </button>
+                        <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                            <li>
+                                <a className="dropdown-item d-flex align-items-center" onClick={logout} href="#a">
+                                    <span className="material-icons-outlined me-2">logout</span>
+                                    <span>Log out</span>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>

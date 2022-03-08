@@ -44,7 +44,7 @@ const HomePage = () => {
                             <a className="nav-link active" href="#team">Team</a>
                         </li>
                         <li className="nav-item">
-                            <a id='btn-login' className="btn btn-primary active fw-bold" href="#signin">SIGN IN</a>
+                            <NavLink id='btn-login' className="btn btn-primary active fw-bold" to='/login' >SIGN IN</NavLink>
                         </li>
                     </ul>
                 </div>
