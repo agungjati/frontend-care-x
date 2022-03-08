@@ -26,3 +26,18 @@ export const getDetailCustomerAPI = async (token, company_id) => {
         }
     }).then( res => res.data )
 }
+
+export const downloadCustomerAPI = async (token, customer_name) => {
+    let url = `customer/download`
+    if(customer_name) {
+        url = url + '?customer='+ customer_name
+    }
+    
+    return await API({
+        url,
+        responseType: 'blob',
+        headers: {
+            'x-access-token': token
+        }
+    }).then( res => res.data )
+}

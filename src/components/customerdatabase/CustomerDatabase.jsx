@@ -2,7 +2,7 @@ import Navbar from "../navbar/Navbar"
 import "./customerDatabase.scss"
 import { useState, useEffect } from "react"
 import { NavLink } from "react-router-dom"
-import { getAllCustomerAPI, searchCustomerAPI } from "../../redux/api/api.customer"
+import { getAllCustomerAPI, searchCustomerAPI, downloadCustomerAPI } from "../../redux/api/api.customer"
 import { useSelector } from "react-redux"
 
 const CustomerDatabase = () => {
@@ -46,6 +46,18 @@ const CustomerDatabase = () => {
         }
     }
 
+    const donwload = () => {
+        downloadCustomerAPI(stateAuth.token)
+        .then(res => {
+            const url = window.URL.createObjectURL(new Blob([res]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'customer.xlsx');
+            document.body.appendChild(link);
+            link.click();
+        })
+    }
+
     return (<div className='bg-light' >
         <Navbar />
         <div className='bg-white' >
@@ -61,7 +73,7 @@ const CustomerDatabase = () => {
                             <button className='btn btn-warning' type='submit' >search</button>
                         </form>
                         <div className='d-flex align-items-center' >
-                            <button id='download-xls' className='btn btn-primary ms-lg-4 d-flex align-items-center fw-bold' >
+                            <button onClick={donwload} id='download-xls' className='btn btn-primary ms-lg-4 d-flex align-items-center fw-bold' >
                                 <span className="material-icons-outlined">file_download</span> Download xls
                             </button>
                         </div>

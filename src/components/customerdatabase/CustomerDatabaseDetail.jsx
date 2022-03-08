@@ -52,7 +52,7 @@ const CustomerDatabaseDetail = () => {
                             <div className='my-4 py-2 px-3  bg-light' style={{ maxWidth: '363px', borderRadius: '8px' }} >
                                 <p className='mb-1' >Segment : {customer.segment}</p>
                                 <p className='mb-1' >Address: {customer.address}</p>
-                                <div className='mb-1' >
+                                {/* <div className='mb-1' >
                                     Contact Person
                                     <ul style={{ listStyle: 'none' }} >
                                         <li key={1} >Budi (Director)</li>
@@ -68,7 +68,7 @@ const CustomerDatabaseDetail = () => {
                                         <li key={3} >CNDC: 1 Full Rack</li>
                                     </ul>
                                 </div>
-                                <p className='mb-1' >Account Manager: Ulfa Fitriyani (841235)</p>
+                                <p className='mb-1' >Account Manager: Ulfa Fitriyani (841235)</p> */}
                             </div>
                         </div>
                     </div>
