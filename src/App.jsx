@@ -23,6 +23,7 @@ function App() {
         <Route path="/:id/customerdatabase" element={<CustomerDatabase />} />
         <Route path="/:id/customerdatabase/:customer" element={<CustomerDatabaseDetail />} />
         <Route path="/:id/salespipeline-add" element={<SalesPipeline />} />
+        <Route path="/:id/salespipeline-edit" element={<SalesPipeline />} />
         <Route path="/:id/aftersales" element={<AfterSales />} />
         <Route path="/:id/ordertracking" element={<OrderTracking />} />
       </Routes>

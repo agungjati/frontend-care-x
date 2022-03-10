@@ -1,8 +1,8 @@
 import Navbar from "../navbar/Navbar"
 import "./salesPortofolio.scss"
 import { NavLink, useNavigate } from "react-router-dom"
-import { getSalesAPI } from "../../redux/api/api.salespipeline"
-import { useEffect } from "react"
+import { getSalesAPI, deleteSalesAPI } from "../../redux/api/api.salespipeline"
+import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 
 
@@ -26,6 +26,7 @@ const customerData = [
 const SalesPortofolio = () => {
     const navigate = useNavigate();
     const stateAuth = useSelector(state => state.auth)
+    const [ salesPipeline, setSalesPipeline ] = useState([])
 
     useEffect(() => {
         getSales()
@@ -35,7 +36,7 @@ const SalesPortofolio = () => {
     const getSales = () => {
         getSalesAPI(stateAuth.token)
         .then(res => {
-            // setCustomer(res.data)
+            setSalesPipeline(res.data)
         })
         .catch(err => {
             console.log('[getSalesAPI]', err)
@@ -43,61 +44,59 @@ const SalesPortofolio = () => {
         })
     }
 
+    const deleteSalespipeline = (order_id) => {
+        const isYes = window.confirm('Are you sure to delete ?')
+        if(isYes) {
+            deleteSalesAPI(stateAuth.token, order_id)
+            .then(res => {
+                getSales()
+            })
+            .catch(err => {
+                console.log('[deleteSalespipeline]', err)
+                alert('Error : '+ err?.response?.data?.message || err.message)
+            })
+        }
+       
+    }
+
     const renderPreSales = () => {
         return (<>
-            <div className='bg-white rounded-8 d-flex align-items-center mb-2' >
+        { salesPipeline.map((_salesPipeline, key) => (
+            _salesPipeline.sales_pipeline.map((_sales, key) => {
+                const percent = _sales.status === 1 ? '0' : _sales.status === 2 ? '50%' : '100%'
+            return(
+            <div key={key} className='bg-white rounded-8 d-flex align-items-center m-2' >                
                 <div className='bg-white p-2 progress-dashboard flex-grow-1' >
-                    <b>Indosat</b>
-                    <div className='progress-container position-relative' >
-                        <div className="progress">
-                            <div className="progress-bar w-2 bg-lowgreen rounded" style={{ width: '50%' }} role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="10"></div>
-                        </div>
-                        <div className='progress-bar-start' >
-                            <div className='dot' ></div>
-                        </div>
-                        <small className='label-start' >Lead Prospect</small>
-                        <div className='progress-bar-end' style={{ left: '50%' }} >
-                            <div className='dot' ></div>
-                        </div>
-                        <small className='label-end' style={{ left: 'calc(50% - 25px)' }} >OGP</small>
-                        <div className='progress-bar-completed' >
-                            <div className='dot' ></div>
-                        </div>
-                        <small className='label-completed' >Sirkulir Bakes</small>
-                    </div>
+                    <b>{key === 0 ? _salesPipeline.name : '' }</b>                    
+                            <div className='progress-container position-relative mt-2' >
+                                <div className="progress">
+                                    <div className="progress-bar w-2 bg-lowgreen rounded" style={{ width: percent }} role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="10"></div>
+                                </div>
+                                <div className='progress-bar-start' >
+                                    <div className='dot' ></div>
+                                </div>
+                                <small className='label-start' >Lead Prospect</small>
+                                <div className='progress-bar-end' style={{ left: percent, zIndex: 9 }} >
+                                    <div className='dot' ></div>
+                                </div>
+                                <small className='label-end' style={{ left: `calc(50%)` }} >OGP</small>
+                                <div className='progress-bar-completed' style={{ left: '100%'}} >
+                                    <div className='dot' ></div>
+                                </div>
+                                <small className='label-completed' >Sirkulir Bakes</small>
+                            </div>                                            
+                    
                 </div>
-                <NavLink className='ms-auto mr-2' to='/1/salespipeline-add' >
+                <NavLink className='ms-auto mr-2' to={`/${stateAuth.user.nik}/salespipeline-edit`} state={{ _sales, customer: _salesPipeline }} >
                     <span className="material-icons-outlined text-primary">edit</span>
                 </NavLink>
-                <span className="material-icons me-2 me-lg-4 text-danger">delete</span>
+                <a href='#a' className='mr-2'  onClick={() => deleteSalespipeline(_sales.order_id)} >
+                    <span className="material-icons me-2 me-lg-4 text-danger">delete</span>
+                </a>
             </div>
-
-            <div className='bg-white rounded-8 d-flex align-items-center mb-2' >
-                <div className='bg-white p-2 progress-dashboard mt-4 flex-grow-1' >
-                    <b>Hypernet</b>
-                    <div className='progress-container position-relative' >
-                        <div className="progress">
-                            <div className="progress-bar w-2 bg-lowgreen rounded" style={{ width: '50%' }} role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="10"></div>
-                        </div>
-                        <div className='progress-bar-start' >
-                            <div className='dot' ></div>
-                        </div>
-                        <small className='label-start' >Lead Prospect</small>
-                        <div className='progress-bar-end' style={{ left: '50%' }} >
-                            <div className='dot' ></div>
-                        </div>
-                        <small className='label-end' style={{ left: 'calc(50% - 25px)' }} >OGP</small>
-                        <div className='progress-bar-completed' >
-                            <div className='dot' ></div>
-                        </div>
-                        <small className='label-completed' >Sirkulir Bakes</small>
-                    </div>
-                </div>
-                <NavLink className='ms-auto mr-2' to='/1/salespipeline-add' >
-                    <span className="material-icons-outlined text-primary">edit</span>
-                </NavLink>
-                <span className="material-icons me-2 me-lg-4 text-danger">delete</span>
-            </div>
+            ) })
+        ))
+        }
         </>)
     }
 
@@ -166,7 +165,7 @@ const SalesPortofolio = () => {
                         <div id='sales-pre-sales' className='w-810 bg-light p-2 mb-4' >
                             {renderPreSales()}
                             <div>
-                                <button onClick={() => navigate('/1/salespipeline-add') } className='btn btn-sm ms-auto d-flex align-items-center bg-lowgreen text-white rounded-8 my-2' >
+                                <button onClick={() => navigate(`/${stateAuth.user.nik}/salespipeline-add`) } className='btn btn-sm ms-auto d-flex align-items-center bg-lowgreen text-white rounded-8 my-2' >
                                     <span className="material-icons-outlined">add_circle_outline</span>
                                     Tambah Sales Pipeline
                                 </button>
