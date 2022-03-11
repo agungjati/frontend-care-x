@@ -52,23 +52,31 @@ const CustomerDatabaseDetail = () => {
                             <div className='my-4 py-2 px-3  bg-light' style={{ maxWidth: '363px', borderRadius: '8px' }} >
                                 <p className='mb-1' >Segment : {customer.segment}</p>
                                 <p className='mb-1' >Address: {customer.address}</p>
-                                {/* <div className='mb-1' >
+                                <div className='mb-1' >
                                     Contact Person
                                     <ul style={{ listStyle: 'none' }} >
-                                        <li key={1} >Budi (Director)</li>
-                                        <li key={2} >Email: budi@indosat.com</li>
-                                        <li key={3} >No Telpon: 081291364407</li>
+                                        <li key={1} >{customer.pic_name}</li>
+                                        <li key={2} >Email: {customer.pic_email}</li>
+                                        <li key={3} >No Telpon: {customer.pic_phone}</li>
                                     </ul>
                                 </div>
-                                <div className='mb-1' >
-                                    In Service
-                                    <ul style={{ listStyle: 'none' }} >
-                                        <li key={1} >Metro E: 1000 Mbps</li>
-                                        <li key={2} >IPTX: 1000 Mbps</li>
-                                        <li key={3} >CNDC: 1 Full Rack</li>
-                                    </ul>
+                                <div className='mb-1' >                                    
+                                    {
+                                        customer.sales_pipeline && customer.sales_pipeline.map((_sales, key) => {
+                                            const dataProspect = Object.entries(_sales.service_prospect || {})                                     
+                                            return(<>
+                                            { dataProspect.length ? <span>In Service</span> : '' }
+                                            <ul key={key} className mb-2 style={{ listStyle: 'none' }} >
+                                                {dataProspect.map((prospect, _key) => {
+                                                    return(<li key={_key} >{prospect[0]}: {prospect[1]}</li>) 
+                                                })}                                                
+                                            </ul>
+                                            </>)
+                                        })
+                                    }
+                                    
                                 </div>
-                                <p className='mb-1' >Account Manager: Ulfa Fitriyani (841235)</p> */}
+                                {/* <p className='mb-1' >Account Manager: Ulfa Fitriyani (841235)</p> */}
                             </div>
                         </div>
                     </div>

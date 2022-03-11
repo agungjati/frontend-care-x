@@ -91,7 +91,7 @@ const CustomerDatabase = () => {
                                             backgroundImage: `url('${cData.image}')`, 
                                             backgroundRepeat: 'no-repeat', 
                                             backgroundColor: '#F7F7F7', 
-                                            backgroundSize: 'cover', 
+                                            backgroundSize: 'contain', 
                                             backgroundPosition: 'center' 
                                     }} >
                                     </div>

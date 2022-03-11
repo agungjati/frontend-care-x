@@ -11,6 +11,8 @@ const AfterSales = () => {
     const [delivery, setDelivery] = useState([])
     const [assurance, setAssurance] = useState([])
     const [customer, setCustomer] = useState([])
+    const [deliveryFilter, setDeliveryFilter] = useState('')
+    const [assuranceFilter, setAssuranceFilter] = useState('')
 
     useEffect(() => {
         getAllSalesDelivery()
@@ -74,7 +76,7 @@ const AfterSales = () => {
             document.body.appendChild(link);
             link.click();
         })
-    }
+    }   
 
     return (<div className='bg-light' >
         <Navbar />
@@ -87,8 +89,8 @@ const AfterSales = () => {
                     <div className='mt-4 mb-2 col-12 d-flex align-items-center justify-content-between' >
                         <span>Delivery</span>
                         <div>
-                            <select className='form-select border-0 text-last-center fw-bold shadow' >
-                                <option>Pilih Perusahaan</option>
+                            <select onChange={e => setDeliveryFilter(e.target.value)} className='form-select border-0 text-last-center fw-bold shadow' >
+                                <option value='' >Pilih Perusahaan</option>
                                 {
                                     customer.map((cs, key) => (
                                         <option key={key} value={cs.company_id}>{cs.name}</option>
@@ -118,7 +120,8 @@ const AfterSales = () => {
                                 </thead>
                                 <tbody>
                                     {
-                                        delivery.map((deliver, key) => (
+                                        (deliveryFilter === '' ? delivery : delivery.filter(x => String(x.company_id) === deliveryFilter ))
+                                            .map((deliver, key) => (
                                         <tr key={key} >
                                             <td className='ps-3'>
                                                 <div className='h-100 px-2 py-2 border-bottom' >{deliver.order_id}</div>
@@ -148,8 +151,8 @@ const AfterSales = () => {
                     <div className='mt-4 mb-2 col-12 d-flex align-items-center justify-content-between' >
                         <span>Assurance</span>
                         <div>
-                            <select className='form-select border-0 text-last-center fw-bold shadow' >
-                                <option>Pilih Perusahaan</option>
+                            <select onChange={e => setAssuranceFilter(e.target.value)} className='form-select border-0 text-last-center fw-bold shadow' >
+                                <option value=''>Pilih Perusahaan</option>
                                 {
                                     customer.map((cs, key) => (
                                         <option key={key} value={cs.company_id}>{cs.name}</option>
@@ -179,7 +182,8 @@ const AfterSales = () => {
                                 </thead>
                                 <tbody>
                                     {
-                                        assurance.map((deliver, key) => (
+                                        (assuranceFilter === '' ? assurance : assurance.filter(x => String(x.company_id) === assuranceFilter ))
+                                            .map((deliver, key) => (
                                             <tr key={key} >
                                                 <td className='ps-3'>
                                                     <div className='h-100 px-2 py-2 border-bottom' >{deliver.order_id}</div>
