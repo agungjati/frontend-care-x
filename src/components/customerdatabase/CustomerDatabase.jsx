@@ -100,14 +100,14 @@ const CustomerDatabase = () => {
                         </div>
                     </div>
                     <div className='my-4 col-12' >
-                        <div id='customer' className='d-flex align-items-center justify-content-center' >
+                        {/* <div id='customer' className='d-flex align-items-center justify-content-center' >
                             <span className="arrow-page material-icons-outlined">keyboard_arrow_left</span>
                             <span className='number-page' >1</span>
                             <span className='number-page'>2</span>
                             <span className='number-page'>3</span>
                             <span className='number-page'>4</span>
                             <span className="arrow-page material-icons-outlined">keyboard_arrow_right</span>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

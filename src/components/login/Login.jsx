@@ -54,13 +54,13 @@ const Login = () => {
             <hr />
             <div className="input-group my-4 shadow-sm">
                 <span className="input-group-text bg-white" id="basic-addon1">
-                    <span class="material-icons-outlined text-warning">account_circle</span>
+                    <span className="material-icons-outlined text-warning">account_circle</span>
                 </span>
                 <input type="email" onChange={onChange} name='email' className="form-control" placeholder="Enter email" aria-label="Email" required />
             </div>
             <div className="input-group mb-4 shadow-sm">
                 <span className="input-group-text bg-white" id="basic-addon1">
-                    <span class="material-icons-outlined text-warning">lock</span>
+                    <span className="material-icons-outlined text-warning">lock</span>
                 </span>
                 <input type="password" onChange={onChange} name='password' className="form-control" placeholder="Enter password" aria-label="Password" required />
             </div>

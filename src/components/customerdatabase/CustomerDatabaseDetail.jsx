@@ -4,6 +4,7 @@ import { useSelector } from "react-redux"
 import { useLocation } from "react-router-dom"
 import { useMemo, useEffect, useState } from "react";
 import { getDetailCustomerAPI } from "../../redux/api/api.customer";
+import React from 'react'
 
 function useQuery() {
     const { search } = useLocation();
@@ -64,14 +65,14 @@ const CustomerDatabaseDetail = () => {
                                     {
                                         customer.sales_pipeline && customer.sales_pipeline.map((_sales, key) => {
                                             const dataProspect = Object.entries(_sales.service_prospect || {})                                     
-                                            return(<>
-                                            { dataProspect.length ? <span>In Service</span> : '' }
-                                            <ul key={key} className mb-2 style={{ listStyle: 'none' }} >
+                                            return(<React.Fragment key={key} >
+                                            { dataProspect.length ? <span>{key+1}. In Service</span> : '' }
+                                            <ul className='mb-2' style={{ listStyle: 'none' }} >
                                                 {dataProspect.map((prospect, _key) => {
                                                     return(<li key={_key} >{prospect[0]}: {prospect[1]}</li>) 
                                                 })}                                                
                                             </ul>
-                                            </>)
+                                            </React.Fragment>)
                                         })
                                     }
                                     
