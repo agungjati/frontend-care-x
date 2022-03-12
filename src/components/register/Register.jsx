@@ -23,6 +23,7 @@ const Register = () => {
         if(stateAuth.user){
             navigate(`/${stateAuth.user.nik}/home`)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [stateAuth.user])
 
     const onSubmit = (e) => {

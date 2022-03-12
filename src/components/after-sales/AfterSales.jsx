@@ -19,7 +19,8 @@ const AfterSales = () => {
         getAllSalesDelivery()
         getAllSalesAssurance()
         getAllCustomer()
-    }, [])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []) 
 
 
     const getAllSalesDelivery = () => {

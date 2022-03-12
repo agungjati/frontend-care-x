@@ -19,6 +19,7 @@ const CustomerDatabaseDetail = () => {
 
     useEffect(() => {
         getDetailCustomer()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const getDetailCustomer = () => {

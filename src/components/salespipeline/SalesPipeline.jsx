@@ -73,8 +73,8 @@ const SalesPipeline = () => {
             }
         })
         
-        
-    }, [])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []) 
 
     const getAllCustomer = () => {
         return getAllCustomerAPI(stateAuth.token)
@@ -269,7 +269,7 @@ const SalesPipeline = () => {
                         <div className='col-md-6 mt-2 mt-md-0' >
                             <div className='p-2 px-md-5 pt-md-4 bg-light rounded-8 h-100' >
                                 <label className='mb-3' htmlFor='minutes-meeting' >Minutes of Meeting</label>
-                            <textarea id='minutes-meeting' name='minutes_of_meeting' required onChange={onChange} className='form-control rounded-8 border-0' placeholder='Input Text' style={{ height: '181px' }} value={formState.minutes_of_meeting} ></textarea>
+                            <textarea id='minutes-meeting' name='minutes_of_meeting' required onChange={onChange} className='form-control rounded-8 border-0' placeholder='Input Text' style={{ height: '181px' }} value={formState.minutes_of_meeting || ''} ></textarea>
                             </div>
                         </div>
                     </div>

@@ -31,7 +31,8 @@ const SalesPortofolio = () => {
 
     useEffect(() => {
         getSales()
-    }, [])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []) 
 
 
     const getSales = () => {
@@ -134,8 +135,8 @@ const SalesPortofolio = () => {
                         <div className='position-relative' style={{ maxWidth: '830px' }} >
                             <div id='sales-portofolio' >
                                 {customerData.map((cData, key) => (
-                                    <NavLink to={`/1/customerdatabase/${cData.name}`} >
-                                        <div key={key} className={`card-customer-sales d-inline-flex align-items-center justify-content-center ${key === 0 ? 'ms-1' : ''} `}
+                                    <NavLink key={key} to={`/1/customerdatabase/${cData.name}`} >
+                                        <div className={`card-customer-sales d-inline-flex align-items-center justify-content-center ${key === 0 ? 'ms-1' : ''} `}
                                             style={{ background: `url('${cData.logo}') no-repeat center #F7F7F7` }} >
                                         </div>
                                     </NavLink>
