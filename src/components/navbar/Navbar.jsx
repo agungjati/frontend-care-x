@@ -18,6 +18,7 @@ const Navbar = () => {
 
     const logout = () => {
         localStorage.clear()
+        window.location.reload()
         navigate('/login')
     }
 
