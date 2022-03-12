@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom"
 import { getSalesAPI, deleteSalesAPI } from "../../redux/api/api.salespipeline"
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
+import Swal from "sweetalert2"
 
 
 const customerData = [
@@ -40,23 +41,40 @@ const SalesPortofolio = () => {
         })
         .catch(err => {
             console.log('[getSalesAPI]', err)
-            alert('Error : '+ err?.response?.data?.message || err.message)
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: err?.response?.data?.message || err.message
+              })  
         })
     }
 
     const deleteSalespipeline = (order_id) => {
-        const isYes = window.confirm('Are you sure to delete ?')
-        if(isYes) {
-            deleteSalesAPI(stateAuth.token, order_id)
-            .then(res => {
-                getSales()
-            })
-            .catch(err => {
-                console.log('[deleteSalespipeline]', err)
-                alert('Error : '+ err?.response?.data?.message || err.message)
-            })
-        }
-       
+        
+        Swal.fire({
+            title: 'Are you sure to delete ?',
+            showDenyButton: true,
+            confirmButtonText: 'Yes',
+            denyButtonText: 'No',
+            icon: 'question'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteSalesAPI(stateAuth.token, order_id)
+                .then(res => {
+                    getSales()
+                })
+                .catch(err => {
+                    console.log('[deleteSalespipeline]', err)
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: err?.response?.data?.message || err.message
+                      })  
+                })
+            }
+          })
+
+      
     }
 
     const renderPreSales = () => {

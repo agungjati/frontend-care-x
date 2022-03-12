@@ -4,6 +4,7 @@ import { getAllCustomerAPI } from "../../redux/api/api.customer"
 import { useSelector } from "react-redux"
 import { useLocation, useNavigate } from "react-router-dom"
 import { createSalesAPI, updateSalesAPI } from "../../redux/api/api.salespipeline"
+import Swal from "sweetalert2"
 
 
 const Checkbox = ({ children, name, value, onChange, isChecked }) => {
@@ -102,7 +103,11 @@ const SalesPipeline = () => {
         })
         .catch(err => {
             console.log('[createSalesAPI]', err)
-            alert('Error : '+ err?.response?.data?.message || err.message)
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: err?.response?.data?.message || err.message
+              })     
         })
     }
 
@@ -113,7 +118,11 @@ const SalesPipeline = () => {
         })
         .catch(err => {
             console.log('[createSalesAPI]', err)
-            alert('Error : '+ err?.response?.data?.message || err.message)
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: err?.response?.data?.message || err.message
+              })  
         })
     }
 
@@ -159,7 +168,7 @@ const SalesPipeline = () => {
                                         <label>Nama Customer</label>
                                     </div>
                                     <div className='col-md-6 mb-3'>
-                                        <select name='company_id' onChange={whenChangeCompany} className='form-select border-0 text-last-center fw-bold' value={formState.company_id || ''} >
+                                        <select name='company_id' onChange={whenChangeCompany} className='form-select border-0 text-last-center fw-bold' value={formState.company_id || ''} required >
                                             <option>Pilih Perusahaan</option>
                                             {
                                                 customerState.map((cs, key) => (
@@ -211,7 +220,19 @@ const SalesPipeline = () => {
                                             <span className='d-block text-center me-2' >Lainnya</span>
                                         </Checkbox>
                                     </div>
-                                </div>                               
+                                </div>
+                                <div className='row' >
+                                    <div className='col-md-6'>
+                                        <label>Status</label>
+                                    </div>
+                                    <div className='col-md-6 mb-3'>
+                                        <select name='status' className='form-select border-0 text-last-center fw-bold' onChange={onChange} value={formState.status} >
+                                            <option value='1' >Lead Prospect</option>
+                                            <option value='2' >OGP</option>
+                                            <option value='3' >Sirkulir Bakes</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 { location.state ? 
                                 <div className='row' >
                                     <div className='col-md-6'>
@@ -241,26 +262,14 @@ const SalesPipeline = () => {
                                         </div>
                                     </div>
                                 </div>
-                                :
-                                <div className='row' >
-                                    <div className='col-md-6'>
-                                        <label>Status</label>
-                                    </div>
-                                    <div className='col-md-6 mb-3'>
-                                        <select name='status' className='form-select border-0 text-last-center fw-bold' onChange={onChange} value={formState.status} >
-                                            <option value='1' >Lead Prospect</option>
-                                            <option value='2' >OGP</option>
-                                            <option value='3' >Sirkulir Bakes</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                }
+                                : '' }                                
+                                
                             </div> 
                         </div>
                         <div className='col-md-6 mt-2 mt-md-0' >
                             <div className='p-2 px-md-5 pt-md-4 bg-light rounded-8 h-100' >
                                 <label className='mb-3' htmlFor='minutes-meeting' >Minutes of Meeting</label>
-                            <textarea id='minutes-meeting' name='minutes_of_meeting' onChange={onChange} className='form-control rounded-8 border-0' placeholder='Input Text' style={{ height: '181px' }} value={formState.minutes_of_meeting} ></textarea>
+                            <textarea id='minutes-meeting' name='minutes_of_meeting' required onChange={onChange} className='form-control rounded-8 border-0' placeholder='Input Text' style={{ height: '181px' }} value={formState.minutes_of_meeting} ></textarea>
                             </div>
                         </div>
                     </div>

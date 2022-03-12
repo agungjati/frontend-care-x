@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import "./aftersales.scss";
 import { getAllCustomerAPI } from "../../redux/api/api.customer";
+import Swal from "sweetalert2";
 
 const AfterSales = () => {
 
@@ -28,7 +29,11 @@ const AfterSales = () => {
         })
         .catch(err => {
             console.log('[getAllSalesDeliveryAPI]', err)
-            alert('Error : '+ err?.response?.data?.message || err.message)
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: err?.response?.data?.message || err.message
+              })
         })
     }
 
@@ -39,7 +44,11 @@ const AfterSales = () => {
         })
         .catch(err => {
             console.log('[getAllSalesAssuranceAPI]', err)
-            alert('Error : '+ err?.response?.data?.message || err.message)
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: err?.response?.data?.message || err.message
+              })
         })
     }
 
@@ -50,7 +59,11 @@ const AfterSales = () => {
         })
         .catch(err => {
             console.log('[getAllCustomerAPI]', err)
-            alert('Error : '+ err?.response?.data?.message || err.message)
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: err?.response?.data?.message || err.message
+              })
         })
     }
 

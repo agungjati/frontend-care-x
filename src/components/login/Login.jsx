@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { loginAPI } from '../../redux/api/api.auth'
 import * as typesAuth from '../../redux/types/type.auth'
 import './login.scss'
+import Swal from 'sweetalert2'
 
 
 const Login = () => {
@@ -31,7 +32,11 @@ const Login = () => {
         })
         .catch(err => {
             console.log('[loginAPI]', err)
-            alert('Error : '+ err?.response?.data?.message || err.message)
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: err?.response?.data?.message || err.message
+              })            
         })
     }
 
@@ -51,13 +56,13 @@ const Login = () => {
                 <span className="input-group-text bg-white" id="basic-addon1">
                     <span class="material-icons-outlined text-warning">account_circle</span>
                 </span>
-                <input type="email" onChange={onChange} name='email' className="form-control" placeholder="Enter email" aria-label="Email" />
+                <input type="email" onChange={onChange} name='email' className="form-control" placeholder="Enter email" aria-label="Email" required />
             </div>
             <div className="input-group mb-4 shadow-sm">
                 <span className="input-group-text bg-white" id="basic-addon1">
                     <span class="material-icons-outlined text-warning">lock</span>
                 </span>
-                <input type="password" onChange={onChange} name='password' className="form-control" placeholder="Enter password" aria-label="Password"  />
+                <input type="password" onChange={onChange} name='password' className="form-control" placeholder="Enter password" aria-label="Password" required />
             </div>
             <div>
                 <NavLink className='btn-link text-decoration-none ' to='/register' >Create an account</NavLink>
