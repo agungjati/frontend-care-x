@@ -5,35 +5,32 @@ import { getSalesAPI, deleteSalesAPI } from "../../redux/api/api.salespipeline"
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import Swal from "sweetalert2"
+import { getAllCustomerAPI } from "../../redux/api/api.customer"
 
-
-const customerData = [
-    { name: 'Hypernet', logo: '/assets/img/hypernet.jpg' },
-    { name: 'lintasart', logo: '/assets/img/lintasart.jpg' },
-    { name: 'iconi', logo: '/assets/img/iconi.jpg' },
-    { name: 'indosat', logo: '/assets/img/indosat.jpg' },
-    { name: 'xl', logo: '/assets/img/xl.jpg' },
-    { name: 'prisma', logo: '/assets/img/prisma.jpg' },
-
-    { name: 'Logo Perusahaan', logo: '/assets/img/Logo Perusahaan.png' },
-    { name: 'Logo Perusahaan', logo: '/assets/img/Logo Perusahaan.png' },
-    { name: 'Logo Perusahaan', logo: '/assets/img/Logo Perusahaan.png' },
-    { name: 'Logo Perusahaan', logo: '/assets/img/Logo Perusahaan.png' },
-    { name: 'Logo Perusahaan', logo: '/assets/img/Logo Perusahaan.png' },
-    { name: 'Logo Perusahaan', logo: '/assets/img/Logo Perusahaan.png' }
-]
 
 
 const SalesPortofolio = () => {
     const navigate = useNavigate();
     const stateAuth = useSelector(state => state.auth)
     const [ salesPipeline, setSalesPipeline ] = useState([])
+    const [ customerData, setCustomer ]  = useState([])
 
     useEffect(() => {
         getSales()
+        getAllCustomer()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []) 
 
+    const getAllCustomer = () => {
+        getAllCustomerAPI(stateAuth.token)
+        .then(res => {
+            setCustomer(res.data)
+        })
+        .catch(err => {
+            console.log('[getAllCustomerAPI]', err)
+            alert('Error : '+ err?.response?.data?.message || err.message)
+        })
+    }
 
     const getSales = () => {
         getSalesAPI(stateAuth.token)
@@ -134,13 +131,19 @@ const SalesPortofolio = () => {
                         </div>
                         <div className='position-relative' style={{ maxWidth: '830px' }} >
                             <div id='sales-portofolio' >
-                                {customerData.map((cData, key) => (
-                                    <NavLink key={key} to={`/1/customerdatabase/${cData.name}`} >
-                                        <div className={`card-customer-sales d-inline-flex align-items-center justify-content-center ${key === 0 ? 'ms-1' : ''} `}
-                                            style={{ background: `url('${cData.logo}') no-repeat center #F7F7F7` }} >
-                                        </div>
-                                    </NavLink>
-                                ))}
+                            { customerData.map((cData, key) => (
+                                <NavLink key={key} to={`/${stateAuth.user.nik}/customerdatabase/${cData.name}?id=${cData.company_id}`} >
+                                    <div  className={`card-customer d-inline-flex align-items-center justify-content-center ${key % 6 === 0 ? 'ms-0' : '' }`}
+                                        style={{ 
+                                            backgroundImage: `url('${cData.image}')`, 
+                                            backgroundRepeat: 'no-repeat', 
+                                            backgroundColor: '#F7F7F7', 
+                                            backgroundSize: 'contain', 
+                                            backgroundPosition: 'center' 
+                                    }} >
+                                    </div>
+                                </NavLink>
+                            )) }
                             </div>
                             <span className="arrow-right-sales material-icons-outlined position-absolute">navigate_next</span>
                         </div>

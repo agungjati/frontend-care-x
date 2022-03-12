@@ -86,7 +86,7 @@ const CustomerDatabase = () => {
                                 <i>Search Result</i>
                             </p> :  '' }                        
                             { customerData.map((cData, key) => (
-                                <NavLink key={key} to={`/1/customerdatabase/${cData.name}?id=${cData.company_id}`} >
+                                <NavLink key={key} to={`/${stateAuth.user.nik}/customerdatabase/${cData.name}?id=${cData.company_id}`} >
                                     <div  className={`card-customer d-inline-flex align-items-center justify-content-center ${key % 6 === 0 ? 'ms-0' : '' }`}
                                         style={{ 
                                             backgroundImage: `url('${cData.image}')`, 

@@ -42,10 +42,10 @@ const CustomerDatabaseDetail = () => {
                         <div id='customer' >
                             <div className={`card-customer d-inline-flex align-items-center justify-content-center ms-0`}
                                 style={{ 
-                                    backgroundImage: `url('${customer.image}')`,
+                                    backgroundImage: `url('${customer.image}')`, 
                                     backgroundRepeat: 'no-repeat', 
                                     backgroundColor: '#F7F7F7', 
-                                    backgroundSize: 'cover', 
+                                    backgroundSize: 'contain', 
                                     backgroundPosition: 'center' 
                                 }} >
                             </div>
@@ -67,12 +67,13 @@ const CustomerDatabaseDetail = () => {
                                         customer.sales_pipeline && customer.sales_pipeline.map((_sales, key) => {
                                             const dataProspect = Object.entries(_sales.service_prospect || {})                                     
                                             return(<React.Fragment key={key} >
-                                            { dataProspect.length ? <span>{key+1}. In Service</span> : '' }
+                                            { customer.sales_pipeline.length ? <span>{ customer.sales_pipeline.length > 1 ? key+1 + '.' : ''} In Service</span> : '' }
                                             <ul className='mb-2' style={{ listStyle: 'none' }} >
                                                 {dataProspect.map((prospect, _key) => {
                                                     return(<li key={_key} >{prospect[0]}: {prospect[1]}</li>) 
                                                 })}                                                
                                             </ul>
+                                            <p className='mb-2' >Account Manager: {_sales.account_manager}</p>      
                                             </React.Fragment>)
                                         })
                                     }
