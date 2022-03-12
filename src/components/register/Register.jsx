@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useState, useEffect } from 'react'
 import { registerAPI } from '../../redux/api/api.auth'
 import * as typesAuth from '../../redux/types/type.auth'
 import './register.scss'
@@ -17,6 +17,13 @@ const Register = () => {
         name: "",
         nik: ""
     })
+     const stateAuth = useSelector(state => state.auth )
+
+    useEffect(() => {
+        if(stateAuth.user){
+            navigate(`/${stateAuth.user.nik}/home`)
+        }
+    }, [stateAuth.user])
 
     const onSubmit = (e) => {
         e.preventDefault()
@@ -39,15 +46,30 @@ const Register = () => {
                     }
                 })
 
-                navigate(`/${res?.data[0]?.nik}/home`)
+                Swal.fire('Success!', '', 'success')
             })
             .catch(err => {
                 console.log('[registerAPI]', err)
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: err?.response?.data?.message || err.message
-                  })                
+                const message = err?.response?.data?.message || err.message
+               
+                if(message === 'success') {
+                    dispatch({
+                        type: typesAuth.LOGIN_SUCCESS,
+                        payload: {
+                            user: err?.response?.data?.data[0] || {},
+                            token: err?.response?.data?.data[0]?.token 
+                        }
+                    })
+                    Swal.fire('Success!', '', 'success')
+                    
+                }  else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: message
+                      })                
+                }              
+
             })
         }
     }
@@ -91,7 +113,7 @@ const Register = () => {
                 <span className="input-group-text bg-white" >                                        
                     <span class="material-icons-two-tone">password</span>
                 </span>
-                <input type="password" onChange={onChange} name='confirm_password' className="form-control" placeholder="Enter confirm password" aria-label="Password" required />
+                <input type="password" onChange={onChange} name='confirm_password' className="form-control" placeholder="Enter confirm password" aria-label="Password" required403 Forbidden />
             </div>
             <div>
                 <NavLink className='btn-link text-decoration-none ' to='/login' >Already have an account ?</NavLink>
